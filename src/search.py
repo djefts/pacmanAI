@@ -87,17 +87,27 @@ def depthFirstSearch(problem):
     print "Start's successors:", problem.getSuccessors(problem.getStartState())
     """
     "*** YOUR CODE HERE ***"
-    util.raiseNotDefined()
+    stack = Stack()
+    path = []
+    closed = []
+    stack.push((problem.getStartState(),path))
+    while True:
+        if stack.isEmpty():
+            return []
+        state,path = stack.pop()
+	closed.append(state)
+        if problem.isGoalState(state):
+            return path
+        closed.append(state)
+        #PriorityQueue()
+        successor = problem.getSuccessors(state)
+        successor = sorted(successor,key=lambda x: x[2])
+        for s in successor:
+            if s[0] not in closed:
+                newPath = path  + [s[1]]
+                stack.push((s[0],newPath))
 
-def breadthFirstSearch(problem):
-    """Search the shallowest nodes in the search tree first."""
-    "*** YOUR CODE HERE ***"
-    util.raiseNotDefined()
 
-def uniformCostSearch(problem):
-    """Search the node of least total cost first."""
-    "*** YOUR CODE HERE ***"
-    util.raiseNotDefined()
 
 def nullHeuristic(state, problem=None):
     """
@@ -113,7 +123,5 @@ def aStarSearch(problem, heuristic=nullHeuristic):
 
 
 # Abbreviations
-bfs = breadthFirstSearch
 dfs = depthFirstSearch
 astar = aStarSearch
-ucs = uniformCostSearch
