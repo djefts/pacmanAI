@@ -17,7 +17,8 @@ In search.py, you will implement generic search algorithms which are called by
 Pacman agents (in searchAgents.py).
 """
 
-import util
+import util as util
+
 
 class SearchProblem:
     """
@@ -26,13 +27,13 @@ class SearchProblem:
 
     You do not need to change anything in this class, ever.
     """
-
+    
     def getStartState(self):
         """
         Returns the start state for the search problem.
         """
         util.raiseNotDefined()
-
+    
     def isGoalState(self, state):
         """
           state: Search state
@@ -40,7 +41,7 @@ class SearchProblem:
         Returns True if and only if the state is a valid goal state.
         """
         util.raiseNotDefined()
-
+    
     def getSuccessors(self, state):
         """
           state: Search state
@@ -51,7 +52,7 @@ class SearchProblem:
         the incremental cost of expanding to that successor.
         """
         util.raiseNotDefined()
-
+    
     def getCostOfActions(self, actions):
         """
          actions: A list of actions to take
@@ -70,7 +71,8 @@ def tinyMazeSearch(problem):
     from game import Directions
     s = Directions.SOUTH
     w = Directions.WEST
-    return  [s, s, w, s, w, w, s, w]
+    return [s, s, w, s, w, w, s, w]
+
 
 def depthFirstSearch(problem):
     """
@@ -108,20 +110,43 @@ def depthFirstSearch(problem):
                 stack.push((s[0],newPath))
 
 
+def breadthFirstSearch(problem):
+    """Search the shallowest nodes in the search tree first."""
+    "*** YOUR CODE HERE ***"
+    util.raiseNotDefined()
 
-def nullHeuristic(state, problem=None):
+
+def uniformCostSearch(problem):
+    """Search the node of least total cost first."""
+    "*** YOUR CODE HERE ***"
+    util.raiseNotDefined()
+
+
+def nullHeuristic(state, problem = None):
     """
     A heuristic function estimates the cost from the current state to the nearest
     goal in the provided SearchProblem.  This heuristic is trivial.
     """
     return 0
 
-def aStarSearch(problem, heuristic=nullHeuristic):
+
+def aStarSearch(problem, heuristic = nullHeuristic):
     """Search the node that has the lowest combined cost and heuristic first."""
     "*** YOUR CODE HERE ***"
     util.raiseNotDefined()
 
 
+def genAlgSearch(problem):
+    """Search the node with a genetic algorithm"""
+    "*** YOUR CODE HERE ***"
+    print("Start:", problem.getStartState())
+    print("Is the start a goal?", problem.isGoalState(problem.getStartState()))
+    print("Start's successors:", problem.getSuccessors(problem.getStartState()))
+
+
 # Abbreviations
+bfs = breadthFirstSearch
 dfs = depthFirstSearch
 astar = aStarSearch
+ucs = uniformCostSearch
+gas = genAlgSearch
