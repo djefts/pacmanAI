@@ -158,6 +158,7 @@ class PositionSearchProblem(search.SearchProblem):
         costFn: A function from a search state (tuple) to a non-negative number
         goal: A position in the gameState
         """
+        self.gameState = gameState
         self.walls = gameState.getWalls()
         self.startState = gameState.getPacmanPosition()
         if start is not None:
@@ -230,8 +231,8 @@ class PositionSearchProblem(search.SearchProblem):
             # Check figure out the next state and see whether its' legal
             dx, dy = Actions.directionToVector(action)
             x, y = int(x + dx), int(y + dy)
-            if self.walls[x][y]:
-                return 999999
+            # if self.walls[x][y]:
+            #     return 999999
             cost += self.costFn((x, y))
         return cost
 
@@ -568,4 +569,4 @@ def mazeDistance(point1, point2, gameState):
     assert not walls[x1][y1], 'point1 is a wall: ' + str(point1)
     assert not walls[x2][y2], 'point2 is a wall: ' + str(point2)
     prob = PositionSearchProblem(gameState, start = point1, goal = point2, warn = False, visualize = False)
-    return len(search.bfs(prob))
+    return len(search.dfs(prob))

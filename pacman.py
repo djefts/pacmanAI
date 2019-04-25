@@ -356,21 +356,23 @@ class PacmanRules:
         Edits the state to reflect the results of the action.
         """
         legal = PacmanRules.getLegalActions(state)
-        if action not in legal:
+        if action in legal:
+            pacmanState = state.data.agentStates[0]
+            
+            # Update Configuration
+            vector = Actions.directionToVector(action, PacmanRules.PACMAN_SPEED)
+            pacmanState.configuration = pacmanState.configuration.generateSuccessor(vector)
+            
+            # Eat
+            next = pacmanState.configuration.getPosition()
+            nearest = nearestPoint(next)
+            if manhattanDistance(nearest, next) <= 0.5:
+                # Remove food
+                PacmanRules.consume(nearest, state)
+        elif action in Directions.directions:
+            pass
+        else:
             raise Exception("Illegal action " + str(action))
-        
-        pacmanState = state.data.agentStates[0]
-        
-        # Update Configuration
-        vector = Actions.directionToVector(action, PacmanRules.PACMAN_SPEED)
-        pacmanState.configuration = pacmanState.configuration.generateSuccessor(vector)
-        
-        # Eat
-        next = pacmanState.configuration.getPosition()
-        nearest = nearestPoint(next)
-        if manhattanDistance(nearest, next) <= 0.5:
-            # Remove food
-            PacmanRules.consume(nearest, state)
     
     applyAction = staticmethod(applyAction)
     

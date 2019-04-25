@@ -56,7 +56,7 @@ class Directions:
     WEST = 'West'
     STOP = 'Stop'
     
-    directions = [NORTH, SOUTH, EAST, WEST, STOP]
+    directions = [NORTH, SOUTH, EAST, WEST]
     
     LEFT = {NORTH: WEST,
             SOUTH: EAST,
