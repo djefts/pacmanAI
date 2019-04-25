@@ -68,17 +68,6 @@ class SearchProblem:
         util.raiseNotDefined()
 
 
-def tinyMazeSearch(problem):
-    """
-    Returns a sequence of moves that solves tinyMaze.  For any other maze, the
-    sequence of moves will be incorrect, so only use this for tinyMaze.
-    """
-    from game import Directions
-    s = Directions.SOUTH
-    w = Directions.WEST
-    return [s, s, w, s, w, w, s, w]
-
-
 def depthFirstSearch(problem):
     """
     Search the deepest nodes in the search tree first.
@@ -106,10 +95,8 @@ def depthFirstSearch(problem):
         if problem.isGoalState(state):
             return path
         closed.append(state)
-        # PriorityQueue()
         successor = problem.getSuccessors(state)
         successor = sorted(successor, key = lambda x: x[2])
-        # print("Current spot:", state, "Successor:", successor)
         for s in successor:
             if s[0] not in closed:
                 newPath = path + [s[1]]
@@ -199,18 +186,6 @@ def build_path(problem, state, pop, rerun = False):
     return state, path
 
 
-def breadthFirstSearch(problem):
-    """Search the shallowest nodes in the search tree first."""
-    "*** YOUR CODE HERE ***"
-    util.raiseNotDefined()
-
-
-def uniformCostSearch(problem):
-    """Search the node of least total cost first."""
-    "*** YOUR CODE HERE ***"
-    util.raiseNotDefined()
-
-
 def nullHeuristic(state, problem = None):
     """
     A heuristic function estimates the cost from the current state to the nearest
@@ -222,12 +197,27 @@ def nullHeuristic(state, problem = None):
 def aStarSearch(problem, heuristic = nullHeuristic):
     """Search the node that has the lowest combined cost and heuristic first."""
     "*** YOUR CODE HERE ***"
-    util.raiseNotDefined()
+    queue = util.PriorityQueue()
+    closed = []
+    #(state,path,cost) is added to the queue based on the cost as a priority
+    queue.push((problem.getStartState(),[]),0)
+    while True:
+        if queue.isEmpty():#If queue is empty and goal not reached, maze is not possible
+            return []
+        state,path = queue.pop()
+        closed.append(state)
+        if problem.isGoalState(state):
+            return path
+        successor = problem.getSuccessors(state)
+        for s in successor:
+            if s[0] not in closed:
+                #Push new path
+                newPath = path  + [s[1]]
+                cost = problem.getCostOfActions(newPath) + heuristic(s[0],problem)
+                queue.push((s[0],newPath),cost)
 
 
 # Abbreviations
 dfs = depthFirstSearch
-bfs = breadthFirstSearch
 astar = aStarSearch
-ucs = uniformCostSearch
 gas = genAlgSearch
