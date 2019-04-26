@@ -122,7 +122,7 @@ class Chromosome:
     
     def calculate_fitness(self):
         # print("Calculate Fitness")
-        return self.dist_s + self.score - self.cost - self.dist_g - self.penalty
+        return self.dist_s + self.score - self.cost + self.dist_g - self.penalty
     
     def clone(self):
         return Chromosome(self.problem, self.chromosome, self.cost)
