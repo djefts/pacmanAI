@@ -10,6 +10,10 @@ import util
 
 
 class Chromosome:
+    """
+    Chromosome class that holds all of the methods for creating, storing, and processing
+    each individual chromosome
+    """
     def __init__(self, problem, chromosome = None, penalty = 0):
         self.chromosome = []
         # Default build
@@ -132,6 +136,11 @@ class Chromosome:
 
 
 class GA:
+    """
+    Main Genetic Algorithm class that stores the information for each population and stores the base GA variables
+    
+    Modify the variables in the __init__() function to play with the GA settings
+    """
     def __init__(self, problem):
         print("Initialize Genetic Algorithm")
         # Population parameters
